@@ -25,6 +25,7 @@ def prepImage(name='audrey', mag=4, sigma=(0,1./40,0)):
         path = name
 
     img = imread(path)
+    img = img[:,:,0:3]
     img = filters.gaussian_filter(img, sigma=[x*img.shape[1] for x in sigma])
     img = interpolation.zoom(img, (mag,mag,1)) 
     return img
