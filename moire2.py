@@ -51,6 +51,7 @@ for i in range(niter):
 
     # enforce grating smoothness by clipping the laplacian
     g1 = m.smoothenPhase(g1, 1e-4/T)
+    g2 = m.smoothenPhase(g2, 1e-4/T)
 
 print 'saving image...'
 g1 = m.makeGrating(g1)
