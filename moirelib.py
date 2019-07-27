@@ -51,10 +51,9 @@ def show(img, sub=111, plotTitle=''):
     title(plotTitle)
 
 
-def saveImage(img, title):
-    imsave('./results/' + title + '-300.png', img, dpi=300)
-    imsave('./results/' + title + '-150.png', img, dpi=150)
-    imsave('./results/' + title + '-72.png', img, dpi=72)
+def saveImage(img, title, dpi=300):
+    postfix = '@'+str(dpi)+'dpi' if dpi != 300 else ''
+    imsave('./results/' + title + postfix + '.png', img, dpi=dpi)
 
 
 def makeCarrier(dims=(800, 600, 3), period=1./20, axis=1, type='uniform'):
