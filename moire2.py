@@ -2,14 +2,18 @@
 Simple moire with two gratings encoding two color images
 """
 import moirelib as m
+import sys
 
 T = 1./40  # grating period as fraction of image width
 offset = 1./8  # offset as a fraction of the image height
 
+input1 = sys.argv[1] if len(sys.argv) > 1 else 'audrey'
+input2 = sys.argv[2] if len(sys.argv) > 2 else 'mona'
+
 print 'Loading images...'
 img = (
-    m.prepImage('audrey', mag=1, sigma=(0, T/4, 0)),
-    m.prepImage('mona',   mag=1, sigma=(0, T/4, 0))
+    m.prepImage(input1, mag=1, sigma=(0, T/4, 0)),
+    m.prepImage(input2, mag=1, sigma=(0, T/4, 0))
 )
 fig = m.figure(figsize=(8, 10))
 m.show(img[0], 321, 'original')

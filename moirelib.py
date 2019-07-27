@@ -2,6 +2,7 @@ from numpy import *
 from matplotlib.pyplot import *
 import scipy.ndimage.filters as filters
 import scipy.ndimage.interpolation as interpolation
+import os.path
 
 
 def prepImage(name='audrey', mag=4, sigma=(0, 1./40, 0)):
@@ -22,8 +23,10 @@ def prepImage(name='audrey', mag=4, sigma=(0, 1./40, 0)):
             einstein='./images/einstein512.png'
         )[name]
     except KeyError:
-        path = name
-
+        if os.path.isfile('./images/'+name+'.png'):
+            path = './images/'+name+'.png'
+        else:
+            path = name
     img = imread(path)
     img = img[:, :, 0:3]
     img = filters.gaussian_filter(img, sigma=[x*img.shape[1] for x in sigma])
@@ -50,6 +53,7 @@ def show(img, sub=111, plotTitle=''):
 
 def saveImage(img, title):
     imsave('./results/' + title + '-300.png', img, dpi=300)
+    imsave('./results/' + title + '-150.png', img, dpi=150)
     imsave('./results/' + title + '-72.png', img, dpi=72)
 
 
