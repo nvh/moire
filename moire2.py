@@ -5,16 +5,17 @@ import moirelib as m
 import sys
 import ntpath
 
-T = 1./40  # grating period as fraction of image width
-offset = 1./8  # offset as a fraction of the image height
-
 input1 = sys.argv[1] if len(sys.argv) > 1 else 'audrey'
 input2 = sys.argv[2] if len(sys.argv) > 2 else 'mona'
 dpi = int(sys.argv[3]) if len(sys.argv) > 3 else 300
+grating = int(sys.argv[4]) if len(sys.argv) > 4 else 40
+
+offset = 1./8  # offset as a fraction of the image height
+T = 1./grating  # grating period as fraction of image width
 
 filename1 = ntpath.basename(input1)
 filename2 = ntpath.basename(input2)
-combinedFilename = filename1 + '+' + filename2
+combinedFilename = filename1 + '+' + filename2 + '-('+str(grating)+')'
 
 print 'Loading images...'
 img = (
