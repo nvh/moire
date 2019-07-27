@@ -4,7 +4,7 @@ import scipy.ndimage.filters as filters
 import scipy.ndimage.interpolation as interpolation
 
 
-def prepImage(name='audrey', mag=4, sigma=(0,1./40,0)):
+def prepImage(name='audrey', mag=4, sigma=(0, 1./40, 0)):
     """
     read image, smooth with specified sigma, and magnify
 
@@ -15,21 +15,20 @@ def prepImage(name='audrey', mag=4, sigma=(0,1./40,0)):
     """
 
     try:
-        path = dict( 
-            audrey = './images/audrey512.png',
-            mona   = './images/mona512.png',
-            lenna =  './images/Lenna.png',
-            einstein = './images/einstein512.png'
+        path = dict(
+            audrey='./images/audrey512.png',
+            mona='./images/mona512.png',
+            lenna='./images/Lenna.png',
+            einstein='./images/einstein512.png'
         )[name]
     except KeyError:
         path = name
 
     img = imread(path)
-    img = img[:,:,0:3]
+    img = img[:, :, 0:3]
     img = filters.gaussian_filter(img, sigma=[x*img.shape[1] for x in sigma])
-    img = interpolation.zoom(img, (mag,mag,1)) 
+    img = interpolation.zoom(img, (mag, mag, 1))
     return img
-
 
 
 def makeGrating(phaseImage):
@@ -37,7 +36,6 @@ def makeGrating(phaseImage):
     Convert phaseImage into grating image scaled between 0 and 1
     """
     return 1/(1+exp(5*cos(2*pi*phaseImage)))
-
 
 
 def show(img, sub=111, plotTitle=''):
@@ -51,7 +49,8 @@ def show(img, sub=111, plotTitle=''):
 
 
 
-def makeCarrier(dims=(800,600,3), period=1./20, axis=1, type='uniform'):
+
+def makeCarrier(dims=(800, 600, 3), period=1./20, axis=1, type='uniform'):
     """
     make the carrier phase image  
     INPUTS:
@@ -60,12 +59,11 @@ def makeCarrier(dims=(800,600,3), period=1./20, axis=1, type='uniform'):
         axis - 0=horizontal, 1=vertical grating
         type - only 'uniform' for now
     """
-    if type=='uniform':
-        g = fromfunction(lambda y,x,d: x/float64(period)/dims[1], dims)
+    if type == 'uniform':
+        g = fromfunction(lambda y, x, d: x/float64(period)/dims[1], dims)
     else:
-        raise Exception('unknown carrier type') 
+        raise Exception('unknown carrier type')
     return g
-
 
 
 def smoothenPhase(img, maxLaplacian, niter=1):
@@ -75,6 +73,6 @@ def smoothenPhase(img, maxLaplacian, niter=1):
     """
     lim = maxLaplacian/img.shape[1]
     for i in range(niter):
-        avg = (img[2:,:,:]+img[:-2,:,:])/2
-        img[1:-1,:,:] = img[1:-1,:,:].clip(avg-lim, avg+lim)
+        avg = (img[2:, :, :]+img[:-2, :, :])/2
+        img[1:-1, :, :] = img[1:-1, :, :].clip(avg-lim, avg+lim)
     return img
