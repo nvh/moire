@@ -14,6 +14,8 @@ img = (
 fig = m.figure(figsize=(8, 10))
 m.show(img[0], 321, 'original')
 m.show(img[1], 322, 'original')
+m.saveImage(img[0], 'original1')
+m.saveImage(img[1], 'original2')
 
 print 'generating gratings...'
 offset = round(offset*img[0].shape[0])  # convert to pixels
@@ -46,6 +48,8 @@ g1 = m.makeGrating(g1)
 g2 = m.makeGrating(g2)
 
 # visualize gratings
+m.saveImage(g1, 'grating1')
+m.saveImage(g2, 'grating2')
 m.show(g1, 323, 'grating 1')
 m.show(g2, 324, 'grating 2')
 
@@ -53,6 +57,9 @@ m.show(g2, 324, 'grating 2')
 e = m.ones((offset, dims[1], dims[2]))
 s1 = m.vstack((e, g1))*m.vstack((g2, e))
 s2 = m.vstack((e, g2))*m.vstack((g1, e))
+m.saveImage(s1, 'superposition1')
+m.saveImage(s2, 'superposition2')
+
 m.show(s1, 325, 'superposition 1')
 m.show(s2, 326, 'superposition 2')
 
