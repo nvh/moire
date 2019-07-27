@@ -8,8 +8,8 @@ offset = 1./8  # offset as a fraction of the image height
 
 print 'Loading images...'
 img = (
-    m.prepImage('audrey', mag=4, sigma=(0, T/4, 0)),
-    m.prepImage('mona',   mag=4, sigma=(0, T/4, 0))
+    m.prepImage('audrey', mag=1, sigma=(0, T/4, 0)),
+    m.prepImage('mona',   mag=1, sigma=(0, T/4, 0))
 )
 fig = m.figure(figsize=(8, 10))
 m.show(img[0], 321, 'original')
